@@ -1,8 +1,4 @@
-# 
-
-# ddd python example votingSystem
-
-
+# DDD Python Example VotingSystem
 
 ### 目的：
 
@@ -19,17 +15,18 @@ python 学习实践demo
 - 用户限定每天只能投一次
 
 - 每天获得票数最多选手获得仓库随机奖品
+
 1. 角色
-   
-   - 用户
-   
-   - 选手
+
+    - 用户
+
+    - 选手
 
 2. 行为
-   
-   - 用户对选手今天投票
-   
-   - 系统给每天票数最多用户发奖
+
+    - 用户对选手今天投票
+
+    - 系统给每天票数最多用户发奖
 
 ### 设计：
 
@@ -44,19 +41,27 @@ python 学习实践demo
 模块结构编排：
 
 - Entity
-  
-  - User -- 用户
-  
-  - Player -- 选手
-  
-  - Prize -- 奖品
+
+    - User -- 用户
+
+    - Player -- 选手
+
+    - Prize -- 奖品
 
 - ValueObject
 
 - AggregateRoot
 
-### 结构：
+### 环境：
 
-### 安装和启动：
+python 3.9.13
 
-### 文档：
+```bash
+pip3 install -r requirements.txt
+```
+
+### 启动：
+
+```bash
+flask run
+```
