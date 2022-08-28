@@ -30,9 +30,9 @@ python 学习实践demo
 
 ### 设计：
 
-抽奖领域拆分：
+投票领域拆分：
 
-- 抽奖子域
+- 投票子域
 
 - 风控子域
 
@@ -51,6 +51,7 @@ python 学习实践demo
 - ValueObject
 
 - AggregateRoot
+    - Vote
 
 ### 环境：
 
