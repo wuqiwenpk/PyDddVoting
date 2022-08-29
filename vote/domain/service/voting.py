@@ -1,18 +1,33 @@
 """Voting domain service"""
-from vote.domain.repository import user_repo, player_repo
+from vote.domain.entity.player import Player
+from vote.domain.entity.voter import Voter
+from vote.domain.value_object.blacklist import VoteCheck
 
 
-class VotingService(object):
+class VotingService:
+    """Voting service"""
 
-    def voting(self, user_id, player_id):
-        """do voting"""
-        # get voter message
-        user = user_repo.get(user_id)
-        player = player_repo.get(player_id)
-        print(f"user {user}")
-        print(f"player {player}")
+    @classmethod
+    def voting(cls, user_id: int, player_id: int):
+        """开始投票"""
+
+        # 获取投票者
+        voter = Voter(user_id)
+        # 风控检查
+        vote_check = VoteCheck()
+        vote_check.check(voter)
+        # 获取选手
+        player = Player(player_id)
+        # 投票,选手票数+1
+        voter.voting(player)
+
+    @classmethod
+    def get_player_day_votes(cls, player_id: int):
+        """获取选手票数"""
+        player = Player(player_id)
+        return player.day_votes
 
 
 if __name__ == '__main__':
     v = VotingService()
-    v.voting(user_id=1, player_id=4)
+    print(v.get_player_day_votes(5))

@@ -1,19 +1,21 @@
 from vote.domain.base.aggregate_root import AggregateRoot
+from vote.domain.entity.player import Player
+from vote.domain.repository import user_repo
 
 
 class Voter(AggregateRoot):
     """Voter Entity & AggregateRoot"""
-    id: int
-    user_id: int
-    prize_id: int
 
     def __init__(self, user_id):
         AggregateRoot.__init__(self, user_id)
+        self._user = user_repo.get(user_id)
 
-    def voting(self) -> str:
+    @property
+    def uname(self):
+        return self._user.name
+
+    @classmethod
+    def voting(cls, player: Player):
         """开始投票"""
-        pass
-
-
-v = Voter(user_id=110)
-print(v.id)
+        # 选手增加票数
+        player.add_day_votes()

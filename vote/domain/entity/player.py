@@ -7,18 +7,20 @@ class Player(Entity):
 
     def __init__(self, id):
         Entity.__init__(self, id)
+        self._player = player_repo.get(id)
+
+    @property
+    def uname(self):
+        return self._player.name
 
     @property
     def day_votes(self) -> int:
-        return player_repo.get_day_votes()
+        return self._player.day_votes
 
     def add_day_votes(self):
         player_repo.add_day_votes(self.id)
 
-
-if __name__ == '__main__':
-    player_repo.get(4)
-    p1 = Player(id=4)
-    print(p1.day_votes)
-    p1.add_day_votes()
-    print(p1.day_votes)
+    def receive(self, goods_name: str):
+        """接受奖品"""
+        # todo add new Address Entity
+        print(f"选手:{self._player.name} 获得了奖品:{goods_name}")
