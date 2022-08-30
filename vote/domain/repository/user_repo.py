@@ -1,18 +1,5 @@
 from vote.domain.repository.base import Repository
-
-
-class User:
-    def __init__(self, id, name, age):
-        self.id: int = id
-        self.name: str = name
-        self.age: int = age
-
-
-users = [
-    User(id=1, name="tom", age=11),
-    User(id=2, name="jack", age=42),
-    User(id=3, name="rose", age=26),
-]
+from vote.domain.utils import get_users_db
 
 
 class UserRepository(Repository):
@@ -27,6 +14,7 @@ class UserRepository(Repository):
         ...
 
     def get(self, id):
+        users = get_users_db()
         for user in users:
             if user.id == id:
                 return user

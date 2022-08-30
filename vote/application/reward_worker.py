@@ -1,8 +1,11 @@
 """发奖后台进程"""
-import schedule
 import time
+import sys
+from pathlib import Path
 
-from vote.domain.service.reward import RewardService
+import schedule
+
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 # INTERVAL_SECONDS = 60*60*24
 INTERVAL_SECONDS = 10
@@ -10,6 +13,8 @@ INTERVAL_SECONDS = 10
 
 def reward_job():
     """发奖"""
+    from vote.domain.service.reward import RewardService
+
     reward_svc = RewardService()
     # 获取当前票数最多选手id
     player_id = reward_svc.get_max_day_votes_player_id()

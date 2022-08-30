@@ -1,18 +1,5 @@
 from vote.domain.repository.base import Repository
-
-
-class Player_:
-    def __init__(self, id, name, day_votes):
-        self.id: int = id
-        self.name: str = name
-        self.day_votes: int = day_votes
-
-
-players = [
-    Player_(id=4, name="robin", day_votes=1),
-    Player_(id=5, name="enos", day_votes=4),
-    Player_(id=6, name="anda", day_votes=6),
-]
+from vote.domain.utils import get_player_db, set_player_db
 
 
 class PlayerRepository(Repository):
@@ -28,21 +15,31 @@ class PlayerRepository(Repository):
         ...
 
     def get(self, id):
-        # todo get by orm
+        players = get_player_db()
         for player in players:
             if player.id == id:
-                self.current_player = player
                 return player
         return None
+
+    def list(self):
+        return get_player_db()
 
     def get_day_votes(self):
         return self.current_player.day_votes
 
     def add_day_votes(self, id):
-
-        self.current_player.day_votes += 1
-        print(f"player id={id} day_votes + 1 total: {self.current_player.day_votes}")
-        # todo save to db
+        players = self.list()
+        for player in players:
+            if player.id == id:
+                player.day_votes += 1
+                print(f"选手{player.name}[{player.id}] 票数 + 1 总票数为: {player.day_votes}")
+        print("########### 实时票数 ##############")
+        for player in self.list():
+            print(f"选手{player.name}[{player.id}] 票数：{player.day_votes}")
+        print("##################################")
+        set_player_db(players)
 
     def get_max_day_votes_player_id(self):
-        return 6
+        players = self.list()
+        players.sort(key=lambda s: s.day_votes, reverse=True)
+        return players[0].id

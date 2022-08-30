@@ -21,13 +21,10 @@ class VotingService:
         # 投票,选手票数+1
         voter.voting(player)
 
+        return dict(success=True, msg="投票成功")
+
     @classmethod
     def get_player_day_votes(cls, player_id: int):
         """获取选手票数"""
         player = Player(player_id)
         return player.day_votes
-
-
-if __name__ == '__main__':
-    v = VotingService()
-    print(v.get_player_day_votes(5))
