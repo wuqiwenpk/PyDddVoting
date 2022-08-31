@@ -4,7 +4,7 @@ from vote.domain.entity.player import Player
 from vote.domain.repository import user_repo, goods_repo
 
 
-class Reward(Entity):
+class Reward(AggregateRoot):
     """Reward Entity & AggregateRoot"""
 
     def __init__(self, goods_id):
